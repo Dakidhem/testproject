@@ -1,0 +1,14 @@
+{% extends 'main.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<h2>Welcome!
+    {% if user.is_authenticated %}
+    Hi {{ user.username }}!
+    {% else %}
+    Sign In or Create an account !
+    {% endif %}
+</h2>
+
+{% endblock %}

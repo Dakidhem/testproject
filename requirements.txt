@@ -1,0 +1,4 @@
+Django==4.1.7
+pymysql==1.0.2
+django-mysql==4.9.0
+cryptography==39.0.2

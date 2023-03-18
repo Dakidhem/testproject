@@ -1,0 +1,16 @@
+<nav class="navbar navbar-dark bg-dark" style="height:100px">
+    <div class="container d-flex justify-content-end">
+        {% if request.user.is_authenticated %}
+        <a class="mr-4" href="/signout">
+            <button class="btn btn-danger">Sign out</button>
+        </a>
+        {% else %}
+        <a class="mr-4" href="/signin" style="margin-right:5px;">
+            <button class="btn btn-primary ">Sign In</button>
+        </a>
+        <a class="mr-4" href="/signup">
+            <button class="btn btn-success">Sign Up</button>
+        </a>
+        {% endif %}
+    </div>
+</nav>
