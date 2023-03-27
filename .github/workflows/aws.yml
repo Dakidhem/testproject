@@ -28,16 +28,16 @@ name: Deploy to Amazon ECS
 
 on:
   push:
-    tags: [ "*.*.*" ]
+    branches: [ "master" ]
 
 env:
   AWS_REGION: eu-west-3                   # set this to your preferred AWS region, e.g. us-west-1
   ECR_REPOSITORY: 632375992524.dkr.ecr.eu-west-3.amazonaws.com/test-app           # set this to your Amazon ECR repository name
   ECS_SERVICE: django                 # set this to your Amazon ECS service name
   ECS_CLUSTER: DevCluster                 # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: MY_ECS_TASK_DEFINITION # set this to the path to your Amazon ECS task definition
+  ECS_TASK_DEFINITION: .aws/django-revision12.json # set this to the path to your Amazon ECS task definition
                                                # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME: MY_CONTAINER_NAME           # set this to the name of the container in the
+  CONTAINER_NAME: app           # set this to the name of the container in the
                                                # containerDefinitions section of your task definition
 
 permissions:
