@@ -9,22 +9,18 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: my_database
-    volumes:
-      - my-db:/var/lib/mysql
-      - ./MySql:/docker-entrypoint-initdb.d
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "db"]
       timeout: 20s
       retries: 10
 
   app:
+    #image: 632375992524.dkr.ecr.eu-west-3.amazonaws.com/test-app
+    build: .
     container_name: app
     restart: on-failure
-    build: .
     ports:
       - "8000:8000"
     depends_on:
       db:
         condition: service_healthy
-volumes:
-  my-db:
