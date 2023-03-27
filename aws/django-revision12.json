@@ -1,0 +1,133 @@
+{
+  "taskDefinitionArn": "arn:aws:ecs:eu-west-3:632375992524:task-definition/django:12",
+  "containerDefinitions": [
+    {
+      "name": "app",
+      "image": "632375992524.dkr.ecr.eu-west-3.amazonaws.com/test-app:latest@sha256:f47133d6785ee1452bc2de1df70aa9f5bdfa384bc854088f066d5ebb73c967ae",
+      "cpu": 0,
+      "memory": 512,
+      "links": ["db:db"],
+      "portMappings": [
+        {
+          "containerPort": 8000,
+          "hostPort": 8000,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "environment": [],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "linuxParameters": {
+        "capabilities": {}
+      },
+      "dependsOn": [
+        {
+          "containerName": "db",
+          "condition": "HEALTHY"
+        }
+      ],
+      "privileged": false,
+      "readonlyRootFilesystem": false,
+      "pseudoTerminal": false,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/docker-compose/testproject",
+          "awslogs-region": "eu-west-3",
+          "awslogs-stream-prefix": "DevCluster"
+        }
+      }
+    },
+    {
+      "name": "db",
+      "image": "docker.io/library/mysql:latest@sha256:ca114710bb35b862062fd51733a7dba1ba3e93be33e4eede442b0ce15c77b718",
+      "cpu": 0,
+      "memory": 512,
+      "portMappings": [
+        {
+          "containerPort": 3306,
+          "hostPort": 3306,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "environment": [
+        {
+          "name": "MYSQL_DATABASE",
+          "value": "my_database"
+        },
+        {
+          "name": "MYSQL_ROOT_PASSWORD",
+          "value": "root"
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "linuxParameters": {
+        "capabilities": {}
+      },
+      "privileged": false,
+      "readonlyRootFilesystem": false,
+      "pseudoTerminal": false,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/docker-compose/testproject",
+          "awslogs-region": "eu-west-3",
+          "awslogs-stream-prefix": "DevCluster"
+        }
+      },
+      "healthCheck": {
+        "command": ["CMD-SHELL", "mysqladmin ping -h localhost"],
+        "interval": 30,
+        "timeout": 20,
+        "retries": 10
+      }
+    }
+  ],
+  "family": "django",
+  "taskRoleArn": "arn:aws:iam::632375992524:role/ECS-Execution-Role",
+  "executionRoleArn": "arn:aws:iam::632375992524:role/ECS-Execution-Role",
+  "revision": 12,
+  "volumes": [],
+  "status": "ACTIVE",
+  "requiresAttributes": [
+    {
+      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.24"
+    },
+    {
+      "name": "ecs.capability.execution-role-awslogs"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.ecr-auth"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.task-iam-role"
+    },
+    {
+      "name": "ecs.capability.container-ordering"
+    },
+    {
+      "name": "ecs.capability.container-health-check"
+    },
+    {
+      "name": "ecs.capability.execution-role-ecr-pull"
+    }
+  ],
+  "placementConstraints": [],
+  "compatibilities": ["EXTERNAL", "EC2"],
+  "requiresCompatibilities": ["EC2"],
+  "registeredAt": "2023-03-27T12:25:08.422Z",
+  "registeredBy": "arn:aws:iam::632375992524:user/mehdi",
+  "tags": []
+}
